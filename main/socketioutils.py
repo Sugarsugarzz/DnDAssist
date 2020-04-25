@@ -9,6 +9,7 @@ from flask import render_template
 
 @socketio.on('new_message')
 def new_message(content):
+    """ 消息发送 """
     print(content)
     message = models.Message(author=current_user._get_current_object(), content=clean_html(content))
     db.session.add(message)

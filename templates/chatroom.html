@@ -2,72 +2,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>聊天室</title>
+    <title>聊天功能测试</title>
+    <script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
 </head>
-<body>
-    <!--    头部     -->
-    <div>
-        <h5>爪巴聊天室</h5>
-        <nav>
-            <a>
-                {% if current_user.is_authenticated %}
-                    Hi {{ current_user.username }}
-                {% endif %}
-            </a>
-            <a>
-                {% if current_user.is_authenticated %}
-                    <img src="{{ current_user.avatar_url }}">
-                {% endif %}
-            </a>
-        </nav>
-        <a href="{{ url_for('auth.logout') }}">Logout</a>
-    </div>
-    <hr>
+<body onload="scrollToEnd()">
+{#    <button class="btn btn-success">按钮</button>#}
+    <!--    导航栏   -->
 
-    <!--    消息     -->
-    <div id="message_container">
-        聊天框
-        {% for message in message_list %}
-        <div class="msg-box">
-            <div class="picture">
-                <img src="{{ message.author.avatar_url }}">
+    <nav class="navbar navbar-default navbar-fixed-top" style="text-align: center">
+        {% if current_user.is_authenticated %}
+            Hi <span class="text-primary">{{ current_user.username }}</span>！
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            <img src="{{ current_user.avatar_url }}" class="rounded-circle img-thumbnail" style="width: 50px; height: 50px">
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}">退出登录</a>
+    </nav>
+    <!--    容器   -->
+    <div class="container">
+        <div class="row">
+            <!--    左侧   -->
+            <div class="col-xs-4">
+                左侧 <br><hr>
+                <!--    折叠面板（展示属性）   -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">
+                                    基础属性
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                力量STR：70<br>
+                                体质CON：70<br>
+                                体型SIZ：65<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                   aria-expanded="true" aria-controls="collapseTwo">
+                                    随身物品
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                力量STR：70<br>
+                                体质CON：70<br>
+                                体型SIZ：65<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="msg">
-                <span>{{ message.author.username }}</span>
-                <small>{{ message.create_time }}</small>
-                <span>{{ message.content|safe }}</span>
+
+
+            <!--    中部   -->
+            <div class="col-xs-4">
+                <!--    聊天室   -->
+                聊天室 <br><hr>
+                <div class="pre-scrollable" id="message_container" >
+                    {% for message in message_list %}
+                        <div>
+                            <img src="{{ message.author.avatar_url }}" class="rounded-circle img-thumbnail" style="width: 25px; height: 25px">
+                            <span class="label label-info">{{ message.author.username }}</span>
+                            <small>{{ message.create_time }}</small>
+                            <p class="bg-info">{{ message.content|safe }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!--    发送消息   -->
+                <hr><br>
+                <div class="col-xs-10">
+                    <textarea id="text_area" class="form-control" style="resize: none"></textarea>
+                </div>
+                <!--    掷骰子   -->
+                <div class="col-xs-2">
+                    <button id="send_button" type="button" class="btn btn-primary">发送</button>
+                    <button id="send_dice" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">掷骰</button>
+                    <div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">掷骰</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>输入掷骰最大数字。</p>
+                                    <input class="form-control" id="dice_number">
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                                    <button id="submit_dice" data-dismiss="modal" class="btn btn-primary" type="button">提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--    右侧   -->
+            <div class="col-xs-4">
+                右侧 <br><hr>
+                <img src="/static/images/pic.jpg">
             </div>
         </div>
-        {% endfor %}
     </div>
-    <hr>
 
 
-    <!--    输入消息     -->
-    <label>请输入内容</label>
-    <textarea id="text_area" aria-label="请输入内容"></textarea>
-    <button id="send_button">发送</button>
-
-
+    <!--    JavaScript   -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-<!--    <script src="{{ url_for('static', filename='socket.io.min.js') }}"></script>-->
-<!--    <script src="WebDevelop/flask_chat/static/js/socket.io.min.js'"></script>-->
-
     <script>
-        // alert('haha11')
         var socket = io('/')
 
         $(function () {
             send()
             get()
-            test()
+            get_dice()
         })
 
         function send() {
-            // 点击发送按钮
+            // 点击发送按钮发送消息
             $('#send_button').click(function () {
                 var content = $('#text_area').val().trim();
                 if (content == "") {
@@ -80,17 +154,39 @@
         }
 
         function get() {
-            // 显示在页面上
+            // 将发送的消息显示在页面上
             socket.on('new_message', function (data) {
                 $('#message_container').append(data.message_html);
                 scrollToEnd();
             })
         }
 
+        function get_dice() {
+            // 掷骰子
+            $('#submit_dice').click(function () {
+                var num = parseInt(document.getElementById('dice_number').value.trim())
+                if (!isNaN(num)){
+                    var result = Math.floor(Math.random() * (num - 1)) + 1;
+                    var div = document.createElement("div");
+                    div.innerHTML =
+                        "    <span class=\"label label-success\">系统</span>\n" +
+                        "    <small> " + new Date().toLocaleTimeString() + "</small>\n" +
+                        "    <p class=\"bg-info\">掷出了" + result + "</p>\n";
+                    document.getElementById('message_container').appendChild(div)
+                    $('#dice_number').val("")
+                    scrollToEnd()
+                } else {
+                    alert('输入的数值不合法，请输入整数。');
+                }
+
+            })
+
+        }
+
         function scrollToEnd() {
             // 滚动到底部
-            var h = $(document).height() - $(window).height();
-            $(document).scrollTop(h);
+            var ele = document.getElementById('message_container')
+            ele.scrollTop = ele.scrollHeight;
         }
     </script>
 </body>

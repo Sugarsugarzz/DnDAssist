@@ -1,10 +1,6 @@
-<div class="msg-box">
-    <div class="picture">
-        <img src="{{ message.author.avatar_url }}">
-    </div>
-    <div class="msg">
-        <span>{{ message.author.username }}</span>
-        <small>{{ message.create_time }}</small>
-        <span>{{ message.content|safe }}</span>
-    </div>
+<div>
+    <img src="{{ message.author.avatar_url }}" class="rounded-circle img-thumbnail" style="width: 25px; height: 25px">
+    <span class="label label-info">{{ message.author.username }}</span>
+    <small>{{ message.create_time }}</small>
+    <p class="bg-info">{{ message.content|safe }}</p>
 </div>
