@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+
+{#    <img src="/static/images/caoliu.png">#}
+    <hr>
+
+    <!--    FLASH   -->
+    {% for error_message in get_flashed_messages() %}
+        <div>
+            {{ error_message }}
+        </div>
+    {% endfor %}
+
+    <form action="{{ url_for('auth.login') }}" method="POST">
+        <label>用户名：<input type="text" name="username" value=""></label><br>
+        <label>密码：<input type="text" name="password" value=""></label><br>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <button type="submit">登录</button>
+    </form>
+
+    <a href="{{ url_for('auth.register') }}">点击这里注册</a>
+
+
+
+
+{% if messages %}
+<script>
+    {% for msg in messages %}
+        alert('{{ msg.message }}');
+    {% endfor %}
+</script>
+{% endif %}
+
+</body>
+</html>

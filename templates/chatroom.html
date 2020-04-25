@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+</head>
+<body>
+    <!--    头部     -->
+    <div>
+        <h5>爪巴聊天室</h5>
+        <nav>
+            <a>
+                {% if current_user.is_authenticated %}
+                    Hi {{ current_user.username }}
+                {% endif %}
+            </a>
+            <a>
+                {% if current_user.is_authenticated %}
+                    <img src="{{ current_user.avatar_url }}">
+                {% endif %}
+            </a>
+        </nav>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </div>
+    <hr>
+
+    <!--    消息     -->
+    <div id="message_container">
+        聊天框
+        {% for message in message_list %}
+        <div class="msg-box">
+            <div class="picture">
+                <img src="{{ message.author.avatar_url }}">
+            </div>
+            <div class="msg">
+                <span>{{ message.author.username }}</span>
+                <small>{{ message.create_time }}</small>
+                <span>{{ message.content|safe }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+
+
+    <!--    输入消息     -->
+    <label>请输入内容</label>
+    <textarea id="text_area" aria-label="请输入内容"></textarea>
+    <button id="send_button">发送</button>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<!--    <script src="{{ url_for('static', filename='socket.io.min.js') }}"></script>-->
+<!--    <script src="WebDevelop/flask_chat/static/js/socket.io.min.js'"></script>-->
+
+    <script>
+        // alert('haha11')
+        var socket = io('/')
+
+        $(function () {
+            send()
+            get()
+            test()
+        })
+
+        function send() {
+            // 点击发送按钮
+            $('#send_button').click(function () {
+                var content = $('#text_area').val().trim();
+                if (content == "") {
+
+                } else {
+                    socket.emit('new_message', content);
+                    $('#text_area').val("")
+                }
+            })
+        }
+
+        function get() {
+            // 显示在页面上
+            socket.on('new_message', function (data) {
+                $('#message_container').append(data.message_html);
+                scrollToEnd();
+            })
+        }
+
+        function scrollToEnd() {
+            // 滚动到底部
+            var h = $(document).height() - $(window).height();
+            $(document).scrollTop(h);
+        }
+    </script>
+</body>
+</html>
