@@ -151,16 +151,16 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
     <script>
-        var socket = io('/')
+        var socket = io('/');
 
         $(function () {
-            send()
-            get()
-            send_dice()
-            get_dice()
-            send_card()
-            get_card()
-        })
+            send();
+            get();
+            send_dice();
+            get_dice();
+            send_card();
+            get_card();
+        });
 
         function send() {
             // 点击发送按钮发送消息
@@ -172,7 +172,20 @@
                     socket.emit('new_message', content);
                     $('#text_area').val("")
                 }
-            })
+            });
+
+            // 回车发送
+            $('#text_area').keydown(function (event) {
+                if (event.keyCode == "13") {
+                    var content = $('#text_area').val().trim();
+                    if (content == "") {
+
+                    } else {
+                        socket.emit('new_message', content);
+                        $('#text_area').val("")
+                    }
+                }
+            });
         }
 
         function get() {
