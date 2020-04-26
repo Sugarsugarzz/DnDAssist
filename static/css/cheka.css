@@ -1,0 +1,649 @@
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				font-family: "Microsoft Yahei";
+			}
+			/*div {
+				border: 1px solid black;
+			}*/
+			html,body{overflow：hidden}
+			@media (min-width: 1600px){
+				.MAIN {
+					width: 1500px;
+					height: 100%;
+					margin-right: auto;
+					margin-left: auto;
+					background: #ccc;
+				}
+			
+				.Main1 {
+					height: 100%;
+					width: 60%;
+					margin: auto;
+					background: white;
+				}
+			}
+			@media (max-width:1600px){
+				.MAIN {
+					width: 100%;
+					height: 100%;
+					margin-right: auto;
+					margin-left: auto;
+					background: #FFF;
+				}
+			
+				.Main1 {
+					height: 100%;
+					width: 100%;
+					margin: auto;
+					background: white;
+				}
+			}
+			.top {
+				height: 300px;
+				width: 800px;
+				margin: 50px auto;
+				border: none;
+			}
+			
+			.message {
+				height: 160px;
+				width: 800px;
+				border: none;
+				position: relative;
+			}
+			
+			.mainhide {
+				height: 100%;
+				width: 800px;
+				margin: auto;
+			}
+			
+			.mainhide1 {
+				height: 35px;
+				width: 99%;
+				float: left;
+				border: none;
+			}
+			
+			.wastecan {
+				height: 35px;
+				width: 5%;
+				float: right;
+				border: none;
+			}
+			
+			#wastecan {
+				height: 30px;
+				width: 30px;
+				border-radius: 10px;
+				outline: none;
+				background: white;
+			}
+			
+			#wastecan img {
+				max-width: 100%;
+			}
+			
+			.tog {
+				height: 35px;
+				width: 5%;
+				float: right;
+				border: none;
+			}
+			
+			#tog {
+				height: 30px;
+				width: 30px;
+				border-radius: 10px;
+				outline: none;
+				background: white;
+			}
+			
+			#tog img {
+				max-width: 100%;
+			}
+			
+			.mainhide1 h4 {
+				margin: 0 0 20px 0;
+				padding: 0;
+			}
+			
+			.career {
+				margin-top: 10px;
+				height: 138px;
+				width: 800px;
+				padding-left: 3px;
+			}
+			
+			.head {
+				height: 160px;
+				width: 160px;
+				float: left;
+			}
+			
+			.Content {
+				height: 160px;
+				width: 530px;
+				float: right;
+				padding:0px 3px 0px 3px;
+			}
+			
+			.main1 {
+				height: 300px;
+				width: 800px;
+				margin: 50px auto;
+				border: none;
+			}
+			
+			.left {
+				height: 300px;
+				width: 420px;
+				float: left;
+				border: none;
+				margin-bottom: 20px;
+			}
+			
+			.right {
+				height: 300px;
+				width: 350px;
+				float: right;
+			}
+			
+			.sub1 {
+				height: 300px;
+				width: 205px;
+				float: left;
+				padding: 3px;
+			}
+			
+			.sub2 {
+				height: 300px;
+				width: 175px;
+				float: right;
+				padding: 3px;
+			}
+			
+			.main2 {
+				height: 550px;
+				width: 800px;
+				margin: 20px auto;
+				border: none;
+			}
+			
+			.left2 {
+				height: 550px;
+				width: 550px;
+				float: left;
+				border: none;
+			}
+			
+			.tit {
+				height: 27px;
+				position: relative;
+				background-color: #D3D3D3;
+				border: none;
+			}
+			
+			.right2 {
+				height: 550px;
+				width: 200px;
+				float: right;
+				border: none;
+			}
+			
+			.points {
+				height: 220px;
+				width: 200px;
+				padding-left: 3px;
+			}
+			
+			.sixra {
+				height: 260px;
+				width: 200px;
+				margin-top: 40px;
+			}
+			
+			.main3 {
+				height: 163px;
+				width: 800px;
+				margin: 50px auto;
+				border:none;
+			}
+			
+			.weapons {
+				height: auto;
+				width: 800px;
+				float: right;
+				border: none;
+			}
+			
+			
+			
+			.main4 {
+				height: 550px;
+				width: 800px;
+				margin: 50px auto;
+				border: none;
+			}
+			
+			.things {
+				height: 550px;
+				width: 320px;
+				float: left;
+				border: none;
+			}
+			.belongings{
+				height: 321px;
+				border: 1px solid black;
+			}
+			
+			.belongings2{
+				width: 99%;
+				height: 297px;
+				margin-left: auto;
+				margin-right:auto;
+				
+			}
+			.property {
+				height:196px;
+				border: 1px solid black;
+				border-top: none;
+				margin-top: 32px;
+				
+				
+			}
+			.pro{
+			   width: 100%;
+			   height: 85px;
+			   
+			}
+			#pr{
+				height: 99%;
+				width: 98%;
+				outline: none;
+				resize: none;
+				border: none;
+				
+				
+				
+			}
+			.property1{
+				border-top: 1px solid black;
+			}
+			.property2 table{
+				height: 65px;
+				width: 100%;
+		       						
+				border: none;
+				border-collapse:collapse;
+				border-bottom: 1px solid black;
+			}
+			
+			.Content ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.Content li {
+				border: 1px solid black;
+				width: 3em;
+				display: inline-block;
+				text-align: center;
+				margin-top:3px ;
+			}
+			
+			.tit ul {
+				position: absolute;
+				width: 548px;
+				left: -1px;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.tit li {
+				float: left;
+				width: 53px;
+				height: 26px;
+				overflow: hidden;
+				text-align: center;
+				padding: 0 0.5px;
+				border-bottom: 1px solid #FFFFFF;
+				display: block;
+			}
+			.message1 {
+				height: 550px;
+				width: 450px;
+				float: right;
+				border: none;
+			}
+			
+			
+			.change {
+				background-color: lavender;
+			}
+			.mes2{
+				width: 100%;
+				
+			}
+			.mes2 table{
+				border: none;
+				border-bottom: 1px solid black;
+				
+			}
+			.mes2 th{
+				height: 25px;
+				width: 115px;
+			}
+			.mes2  td{
+				height: 25px;
+			}
+			.mes3{
+              	height: 100%;
+              	width: 335px;
+              	resize: none;
+              	outline: none;
+              	border: 1px;
+              }
+              #ren{
+              	margin-top: 1px;
+              	height: 260px;
+              	width: 99%;
+              	resize: none;
+              	outline: none;
+              	border: none;
+              	
+              }
+			
+			
+		
+			
+			
+			
+			
+			.exp1 ul {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.exp1 li {
+				overflow: hidden;
+			}
+			
+			.exp1 input {
+				list-style-type: none;
+			}
+			
+			.crop-picker-wrap {
+				display: inline-block;
+				position: relative;
+				width: 100px;
+				height: 160px;
+				overflow: hidden;
+			}
+			
+			.crop-picker {
+				width: 90px;
+				height: 30px;
+				line-height: 1;
+				-webkit-appearance: none;
+				margin-left: 5px;
+				border: none;
+				border-radius: 5px;
+				padding: 9px 0;
+				background-color: #1ab2ff;
+				color: #fff;
+				cursor: pointer;
+				position: absolute;
+				bottom: 0;
+				display: inline-block;
+			}
+			
+			.crop-picker-file {
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 100%;
+				opacity: 0;
+				cursor: pointer;
+				filter: alpha(opacity=0);
+			}
+			
+			.crop-wrapper {
+				display: inline-block;
+				min-width: 750px;
+				margin: 10px 0;
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				box-shadow: 0 0 5px 2px #ccc;
+			}
+			
+			.crop-container {
+				font-size: 0;
+			}
+			
+			.crop-container img[src=""] {
+				visibility: hidden;
+			}
+			
+			.crop-area-wrapper,
+			.crop-preview-wrapper {
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			.crop-area-wrapper {
+				width: 500px;
+				height: 400px;
+			}
+			
+			.crop-preview-wrapper {
+				width: 200px;
+				height: 200px;
+				margin-left: 28px;
+				overflow: hidden;
+			}
+			
+			.crop-preview-container {
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.crop-operate {
+				text-align: center;
+				margin: 10px 0;
+			}
+			
+			.crop-save,
+			.crop-cancel {
+				display: inline-block;
+				vertical-align: middle;
+				width: 150px;
+				height: 50px;
+				line-height: 50px;
+				-webkit-appearance: none;
+				margin: 0 5px;
+				border: none;
+				border-radius: 5px;
+				background-color: #1ab2ff;
+				color: #fff;
+				cursor: pointer;
+			}
+			
+			.crop-hidden {
+				display: none;
+			}
+			
+			#TCrop {
+				border: 0px;
+			}
+			
+			.menu {
+				height: 38px;
+				width: 550px;
+				border: 1px solid #c4d8f;
+				background: #e0ecff;
+			}
+			
+			.menu div {
+				float: left;
+				width: 42px;
+				text-align: center;
+				line-height: 32px;
+				height: 32px;
+				cursor: pointer;
+				border-left: #cccccc solid 1px;
+				color: #536a91;
+				font-size: 12px;
+				overflow: hidden;
+				background: #e3eeff;
+				margin: 5px 5px 0 3px;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				border: 1px solid #b1cbf0;
+				opacity: 1.0;
+			}
+			
+			.menu div:hover {
+				opacity: 0.8;
+			}
+			
+			.menu div.select {
+				background: #f1f6ff;
+				color: #336699;
+				font-weight: bold;
+			}
+			
+			.menudiv {
+				height: 491px;
+				width: 550px;
+				border-right: black solid 1px;
+				border-top: 0;
+				border-bottom: 1px solid black;
+				background: #fefefe;
+			}
+			
+			.menudiv div {
+				width: 100%;
+				height: 100%;
+			}
+			.menudiv table{
+				border-left: none;
+				border-top: none;
+			}
+			.weapons2 table{
+				border: none;
+			}
+			.weapons select{
+				outline: none;
+			}
+			.fighting table{
+				border: none;
+			}
+             
+              	
+              
+              .main5{
+              	width:800px ;
+              	height: 310px;            	
+              	margin: auto;
+              }
+              
+              .lef1{
+              	width: 200px;
+              	height: 290px;
+              	float: left;
+              	border: 1px solid black;
+              }
+              .fri{
+              	width: 200px;
+              	height: 290px;
+              	float: left;
+              	margin-left: 100px;
+              	border: 1px solid black;
+              }
+              .ke{
+              	width: 200px;
+              	height: 290px;
+              	float: right;
+              	border: 1px solid black;
+              	
+              }
+              .text{
+              	width: 195px;
+              	height: 260px;
+              	outline: none;
+              	resize: none;
+              	border: none;
+              	
+              }
+               .belongings3{
+              	height: 100%;
+              	width: 100%;
+              	outline: none;
+              	border: none;
+              	resize: none;
+              	}
+              .belongings2 td{
+              	
+              	width: 312px;
+              }
+              .belongings2 table{
+              	
+              	height: 100%;
+              	
+              	border-collapse:collapse;
+              	border: none;
+              }
+              .prt{
+              	width: 60px;
+              	height: 17px;
+              	outline: none;
+              	border: none;
+              	
+              	
+              }
+              
+			
+			#togg {
+				height: 30px;
+				width: 30px;
+				border-radius: 10px;
+				outline: none;
+				background: white;
+			}
+			
+			#togg img {
+				max-width: 100%;
+			}
+			.mainhide3{
+				width:100%;
+				height: 100%;
+			}
+			#instruction{
+				width: 100%;
+				height: 100%;
+				
+				border-collapse:collapse;
+				border: none;
+				
+			}
+			#instruction td{
+				width: 800px;
+				height: 25px;
+			}
+                        .tab{
+				width:570px;
+				height:530px;
+				overflow-y:auto;
+			}
+
+			
+              
+              	
+              
