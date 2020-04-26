@@ -22,6 +22,6 @@ class User(UserMixin, db.Model):
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.Text, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    create_time = db.Column(db.DateTime, default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), index=True)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     author = db.relationship('User', back_populates='messages')
