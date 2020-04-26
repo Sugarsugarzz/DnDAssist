@@ -22,7 +22,9 @@
         {% if current_user.is_authenticated %}
             <img src="{{ current_user.avatar_url }}" class="rounded-circle img-thumbnail" style="width: 50px; height: 50px">
         {% endif %}
-        <a href="{{ url_for('auth.logout') }}">退出登录</a>
+        <p hidden id="room_number" value="chatroom1"></p>
+        &nbsp;&nbsp;<a id="leave_room" href="/">离开房间</a>
+        &nbsp;&nbsp;<a href="{{ url_for('auth.logout') }}">退出登录</a>
     </nav>
     <!--    容器   -->
     <div class="container">
@@ -154,13 +156,47 @@
         var socket = io('/');
 
         $(function () {
+
+            join_room();
+            leave_room();
             send();
             get();
             send_dice();
             get_dice();
             send_card();
             get_card();
+
         });
+
+        function join_room() {
+            // 进入房间
+            socket.on('join_room', function (data) {
+               $('#message_container').append(data.join_message_html);
+               scrollToEnd();
+            });
+        }
+
+        function leave_room() {
+            // 按钮离开房间
+            $('#leave_room').click(function () {
+                var data = {'room': $('#room_number').attr('value')};
+               socket.emit('leave_room', data);
+            });
+            // 后退离开房间
+            {#var counter = 0;#}
+            {#if (window.history && window.history.pushState) {#}
+            {#    window.onpopstate = function () {#}
+            {#        window.history.pushState('forward', null, '#');#}
+            {#        window.history.forward(1);#}
+            {#        alert('不可回退');#}
+            {#    };#}
+            {#}#}
+            // 离开房间监听
+            socket.on('leave_room', function (data) {
+               $('#message_container').append(data.leave_message_html);
+               scrollToEnd();
+            });
+        }
 
         function send() {
             // 点击发送按钮发送消息

@@ -13,6 +13,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'], endpoint='login')
 def login():
+    """ 登录 """
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
@@ -27,7 +28,7 @@ def login():
             #     return redirect(url_for('chat.chat'))
             if user_obj:
                 login_user(user_obj)
-                return redirect(url_for('chat.chat'))
+                return redirect(url_for('auth.index'))
             else:
                 flash('用户名或密码错误。')
                 return redirect(url_for('auth.login'))
@@ -40,6 +41,7 @@ def login():
 
 @auth.route('/register', methods=['GET', 'POST'], endpoint='register')
 def register():
+    """ 注册 """
     if request.method == 'GET':
         return render_template('register.html')
     elif request.method == 'POST':
@@ -67,10 +69,13 @@ def register():
 @login_required
 @auth.route('/logout', methods=['GET', 'POST'], endpoint='logout')
 def logout():
+    """ 登出 """
     logout_user()
     return redirect(url_for('auth.login'))
 
 
-@auth.route('/test', methods=['GET', 'POST'])
-def test():
-    return render_template('test.html')
+@login_required
+@auth.route('/', methods=['GET', 'POST'], endpoint='index')
+def index():
+    """ 首页 """
+    return render_template('index.html')
