@@ -34,3 +34,24 @@ def dice_message(dice_message_json):
              'dice_message_html': render_template('message_dice.html', message=message)
          },
          broadcast=True)
+
+
+@socketio.on('card_message')
+def card_message(card_json):
+    """ 修改车卡请求 """
+    card_obj = db.session.query(models.DndCard).filter(models.DndCard.author == current_user._get_current_object()).one_or_none()
+    if card_obj:
+        # 已有车卡，对属性进行修改
+        card_obj.player_attr_json = card_json
+        db.session.commit()
+    else:
+        # 用户无车发，新建车卡
+        dnd_card = models.DndCard(author=current_user._get_current_object(), player_attr_json=card_json)
+        db.session.add(dnd_card)
+        db.session.commit()
+
+    emit('card_message',
+         {
+            'card_json': card_obj.player_attr_json
+         },
+         broadcast=True)
