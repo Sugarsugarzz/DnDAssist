@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>测试车卡页面</h1>
+	<div id="test">
+		
+	</div>
+</body>
+
+<script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<script src="../static/js/card.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var cha = new Character();
+
+		var attr = cha.baseAttr;
+		for(var i in attr){
+			$("#test").append(i
+				+ ": <input type='text' class='card' name='>"
+				+ i
+				+ "'><br>"
+				);
+		}
+	});
+
+</script>
+</html>
