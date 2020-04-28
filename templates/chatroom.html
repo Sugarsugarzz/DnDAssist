@@ -23,6 +23,7 @@
             <img src="{{ current_user.avatar_url }}" class="rounded-circle img-thumbnail" style="width: 50px; height: 50px">
         {% endif %}
         <p hidden id="room_number" value="chatroom1"></p>
+        &nbsp;&nbsp;<a id="edit_card" href="{{ url_for('chat.card') }}">配置人物卡</a>
         &nbsp;&nbsp;<a id="leave_room" href="/">离开房间</a>
         &nbsp;&nbsp;<a href="{{ url_for('auth.logout') }}">退出登录</a>
     </nav>
@@ -88,8 +89,7 @@
                                 <small>{{ message.create_time }}</small>
                                 <p class="bg-info">{{ message.content|safe }}</p>
                             </div>
-                        {% endif %}
-                        {% if message.author.username != '系统' %}
+                        {% else %}
                             <div>
                                 <img src="{{ message.author.avatar_url }}" class="rounded-circle img-thumbnail" style="width: 25px; height: 25px">
                                 <span class="label label-info">{{ message.author.username }}</span>
@@ -135,13 +135,13 @@
             <div class="col-xs-4">
                 <h4>我的人物卡</h4> <br>
                 <ul class="list-group" id="card_container">
+                    {% if card_json %}
+                        {% for key in card_json %}
+                            <li class="list-group-item">{{ key }}：{{ card_json[key] }}</li>
+                        {% endfor %}
+                    {% endif %}
                 </ul>
                 <hr>
-                <h4>修改我的人物卡</h4> <br>
-                <input class="form-control card" name="角色名称" value="角色名称">
-                <input class="form-control card" name="种族" value="种族">
-                <br>
-                <button class="btn btn-primary" id="submit_card">提交</button>
             </div>
         </div>
     </div>
@@ -163,8 +163,7 @@
             get();
             send_dice();
             get_dice();
-            send_card();
-            get_card();
+            // get_card();
 
         });
 
@@ -183,14 +182,7 @@
                socket.emit('leave_room', data);
             });
             // 后退离开房间
-            {#var counter = 0;#}
-            {#if (window.history && window.history.pushState) {#}
-            {#    window.onpopstate = function () {#}
-            {#        window.history.pushState('forward', null, '#');#}
-            {#        window.history.forward(1);#}
-            {#        alert('不可回退');#}
-            {#    };#}
-            {#}#}
+
             // 离开房间监听
             socket.on('leave_room', function (data) {
                $('#message_container').append(data.leave_message_html);
@@ -257,21 +249,6 @@
             })
         }
 
-        function send_card() {
-            // 提交车卡
-            $('#submit_card').click(function () {
-                var card_json = {};
-                var id_count = 0
-                $('.card').each(function (i, e) {
-                    var attr_json = {};
-                    attr_json['attr_name'] = e.name;
-                    attr_json['attr_detail'] = e.value.trim();
-                    card_json[++id_count] = attr_json;
-                });
-                socket.emit('card_message', card_json);
-            })
-        }
-
         function get_card() {
             // 获取车卡
             socket.on('card_message', function (data) {
@@ -279,7 +256,7 @@
                 for (var key in data.card_json) {
                     var li = document.createElement("li");
                     li.className = 'list-group-item';
-                    li.innerHTML = data.card_json[key]['attr_name'] + "：" + data.card_json[key]['attr_detail'];
+                    li.innerHTML = key + "：" + data.card_json[key];
                     document.getElementById('card_container').appendChild(li);
                 }
             })

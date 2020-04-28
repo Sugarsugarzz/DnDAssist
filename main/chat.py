@@ -18,4 +18,21 @@ def chatroom():
         message_list.reverse()
         message_list = message_list[:99]
         message_list.reverse()
-        return render_template('chatroom.html', message_list=message_list)
+        # 加载已配置的人物卡
+        card_obj = db.session.query(models.DndCard).filter(
+            models.DndCard.author == current_user._get_current_object()).one_or_none()
+        card_json = None
+        if card_obj:
+            card_json = card_obj.player_attr_json
+        return render_template('chatroom.html', message_list=message_list, card_json=card_json)
+
+
+@chat.route('/card', methods=['GET', 'POST'], endpoint='card')
+def card():
+    if request.method == 'GET':
+        card_obj = db.session.query(models.DndCard).filter(
+            models.DndCard.author == current_user._get_current_object()).one_or_none()
+        card_json = None
+        if card_obj:
+            card_json = card_obj.player_attr_json
+        return render_template('chekaTest.html', card_json=card_json)
