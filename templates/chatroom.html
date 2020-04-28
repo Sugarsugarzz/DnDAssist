@@ -108,8 +108,8 @@
                 <!--    掷骰子   -->
                 <div class="col-xs-2">
                     <button id="send_button" type="button" class="btn btn-primary">发送</button>
-                    <button id="send_dice" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">掷骰</button>
-                    <div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <button id="send_dice" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myDiceModal">掷骰</button>
+                    <div class="modal fade" id="myDiceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -123,6 +123,26 @@
                                 <div class="modal-footer">
                                     <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
                                     <button id="submit_dice" data-dismiss="modal" class="btn btn-primary" type="button">提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myDmDiceModal">掷私人骰</button>
+                    <div class="modal fade" id="myDmDiceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">掷私人骰</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>输入掷骰最大数字。</p>
+                                    <input class="form-control" id="dm_dice_number">
+                                </div>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                                    <button id="submit_dm_dice" data-dismiss="modal" class="btn btn-primary" type="button">提交</button>
                                 </div>
                             </div>
                         </div>
@@ -157,25 +177,20 @@
 
         $(function () {
 
-            join_room();
-            leave_room();
-            send();
-            get();
-            send_dice();
-            get_dice();
+            room_task();
+            message_task();
+            dice_task();
             // get_card();
 
         });
 
-        function join_room() {
+        function room_task() {
             // 进入房间
             socket.on('join_room', function (data) {
                $('#message_container').append(data.join_message_html);
                scrollToEnd();
             });
-        }
 
-        function leave_room() {
             // 按钮离开房间
             $('#leave_room').click(function () {
                 var data = {'room': $('#room_number').attr('value')};
@@ -190,7 +205,8 @@
             });
         }
 
-        function send() {
+
+        function message_task() {
             // 点击发送按钮发送消息
             $('#send_button').click(function () {
                 var content = $('#text_area').val().trim();
@@ -214,40 +230,58 @@
                     }
                 }
             });
-        }
 
-        function get() {
-            // 将发送的消息显示在页面上
+            // 接收消息，显示在页面上
             socket.on('new_message', function (data) {
                 $('#message_container').append(data.message_html);
                 scrollToEnd();
             })
         }
 
-        function send_dice() {
+        function dice_task() {
             // 发送掷骰子请求
             $('#submit_dice').click(function () {
-                var num = parseInt(document.getElementById('dice_number').value.trim())
+                var num = parseInt(document.getElementById('dice_number').value.trim());
                 if (!isNaN(num)){
                     var result = Math.floor(Math.random() * (num - 1)) + 1;
-                    var dice_json = {"result_number": result, "max_number": num}
-                    socket.emit('dice_message', dice_json)
-                    $('#dice_number').val("")
+                    var dice_json = {"result_number": result, "max_number": num};
+                    socket.emit('dice_message', dice_json);
+                    $('#dice_number').val("");
                     scrollToEnd()
                 } else {
                     alert('输入的数值不合法，请输入整数。');
                 }
+            });
 
-            })
-        }
+            // 私人骰
+            $('#submit_dm_dice').click(function () {
+                var num = parseInt(document.getElementById('dm_dice_number').value.trim());
+                if (!isNaN(num)) {
+                    var result = Math.floor(Math.random() * (num - 1)) + 1;
+                    var div = document.createElement("div");
+                    var currentDate = new Date();
+                    var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' +
+                            currentDate.getDate() + ' ' + currentDate.getHours() + ':' + currentDate.getMinutes() +
+                            ':' + currentDate.getSeconds();
+                    div.innerHTML =
+                        "    <span class='label label-default'>私人骰</span>\n" +
+                        "    <small> " + formattedDate + "</small>\n" +
+                        "    <p class='bg-info'>DM 掷出了" + result + "（范围 1~" + num +"）</p>\n";
+                    document.getElementById('message_container').appendChild(div);
+                    $('#dm_dice_number').val("");
+                    scrollToEnd()
+                } else {
+                    alert('输入的数值不合法，请输入整数。');
+                }
+            });
 
-        function get_dice() {
             // 显示掷骰子结果
             socket.on('dice_message', function (data) {
                 $('#message_container').append(data.dice_message_html);
                 scrollToEnd();
             })
         }
+
 
         function get_card() {
             // 获取车卡
