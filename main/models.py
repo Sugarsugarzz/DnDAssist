@@ -24,7 +24,7 @@ class Message(db.Model):
     """ 消息实体 """
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.Text, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), index=True)
+    create_time = db.Column(db.DateTime, default=datetime.now, index=True)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     author = db.relationship('User', back_populates='messages')
 
@@ -33,6 +33,6 @@ class DndCard(db.Model):
     """ 车卡实体 """
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     player_attr_json = db.Column(db.JSON, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), index=True)
+    create_time = db.Column(db.DateTime, default=datetime.now, index=True)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     author = db.relationship('User', back_populates='dndcard')
